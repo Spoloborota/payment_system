@@ -1,6 +1,16 @@
 package model
 
-import "time"
+import (
+	"time"
+)
+
+const (
+	Registered TransactionStatus = iota
+	Success
+	Failed
+)
+
+type TransactionStatus uint8
 
 type WalletType struct {
 	ID          uint
@@ -13,12 +23,15 @@ type Wallet struct {
 	Name         string
 	Description  string
 	WalletTypeID uint
+	Balance      uint
 }
 
 type Transaction struct {
-	ID             uint
+	ID             uint64
 	Created        time.Time
-	DebitWalletID  uint
-	CreditWalletID uint
+	DebitWalletID  uint `db:"debit_wallet_id"`
+	CreditWalletID uint `db:"credit_wallet_id"`
 	Amount         uint
+	Description    string
+	Status         TransactionStatus
 }
