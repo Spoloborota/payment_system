@@ -8,4 +8,6 @@ mysql:
 clickhouse:
   host: localhost
   port: "9000"
-  database: default
+  db: payment_system
+
+processing_task_timeout_sec: 10

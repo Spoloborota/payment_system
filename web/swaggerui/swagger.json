@@ -1,0 +1,433 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Payment System Rest API",
+    "description": "Payment System Rest API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "paths": {
+    "/wallets": {
+      "post": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Create new wallet",
+        "operationId": "CreateWallet",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_wallet_request"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/create_wallet_response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "Create new wallet request"
+      }
+    },
+    "/wallets/{id}": {
+      "get": {
+        "tags": [
+          "Wallet"
+        ],
+        "summary": "Get wallet",
+        "operationId": "Wallet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/wallet_response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/topup": {
+      "post": {
+        "tags": [
+          "TopUp"
+        ],
+        "summary": "Top up wallet",
+        "operationId": "TopUp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/topup_wallet_request"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/topup_wallet_response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "Top up wallet request"
+      }
+    },
+    "/transactions": {
+      "post": {
+        "tags": [
+          "Transaction"
+        ],
+        "summary": "Create transaction",
+        "operationId": "CreateTransaction",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_transaction_request"
+              }
+            }
+          },
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/create_transaction_response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "Create transaction request"
+      },
+      "get": {
+        "tags": [
+          "TransactionsReport"
+        ],
+        "summary": "Get transactions report",
+        "operationId": "TransactionsReport",
+        "parameters": [
+          {
+            "name": "is_top_up",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "debit_wallet_id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "credit_wallet_id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/csv": {}
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions/{id}": {
+      "get": {
+        "tags": [
+          "TransactionStatus"
+        ],
+        "summary": "Get transaction status",
+        "operationId": "TransactionStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/transaction_status_response"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error_response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "responseStatus": {
+        "type": "string",
+        "default": "ok",
+        "enum": [
+          "ok",
+          "error"
+        ]
+      },
+      "create_wallet_request": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "topup_wallet_request": {
+        "required": [
+          "amount",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "integer"
+          }
+        }
+      },
+      "create_transaction_request": {
+        "required": [
+          "amount",
+          "credit_id",
+          "debit_id"
+        ],
+        "type": "object",
+        "properties": {
+          "debit_id": {
+            "type": "integer"
+          },
+          "credit_id": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "create_wallet_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/responseStatus"
+          },
+          "created_wallet_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "wallet_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/responseStatus"
+          },
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "balance": {
+            "type": "integer"
+          }
+        }
+      },
+      "topup_wallet_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/responseStatus"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "create_transaction_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/responseStatus"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "transaction_status_response": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/responseStatus"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "error_response": {
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "object",
+            "required": [
+              "status",
+              "body"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "default": "error"
+              },
+              "body": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
